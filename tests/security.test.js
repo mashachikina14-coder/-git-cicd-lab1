@@ -66,3 +66,32 @@ describe('Password Strength Checker', () => {
       .toThrow('Password must be a string');
   });
 });
+describe('Custom password rules', () => {
+  test('generates password using custom characters', () => {
+    const password = generatePassword({
+      length: 20,
+      lowercase: false,
+      uppercase: false,
+      numbers: false,
+      symbols: false,
+      customCharacters: 'ABC123'
+    });
+
+    expect(password).toHaveLength(20);
+    expect(password).toMatch(/^[ABC123]+$/);
+  });
+
+  test('generates password with custom symbols', () => {
+    const password = generatePassword({
+      length: 15,
+      lowercase: false,
+      uppercase: false,
+      numbers: false,
+      symbols: false,
+      customCharacters: '!@#'
+    });
+
+    expect(password).toHaveLength(15);
+    expect(password).toMatch(/^[!@#]+$/);
+  });
+});

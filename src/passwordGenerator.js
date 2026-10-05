@@ -4,7 +4,8 @@ function generatePassword(options = {}) {
     lowercase = true,
     uppercase = true,
     numbers = true,
-    symbols = true
+    symbols = true,
+    customCharacters = ''
   } = options;
 
   if (length < 1) {
@@ -13,10 +14,25 @@ function generatePassword(options = {}) {
 
   let characters = '';
 
-  if (lowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
-  if (uppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if (numbers) characters += '0123456789';
-  if (symbols) characters += '!@#$%^&*()_+-=[]{}';
+  if (lowercase) {
+    characters += 'abcdefghijklmnopqrstuvwxyz';
+  }
+
+  if (uppercase) {
+    characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  }
+
+  if (numbers) {
+    characters += '0123456789';
+  }
+
+  if (symbols) {
+    characters += '!@#$%^&*()_+-=[]{}';
+  }
+
+  if (customCharacters) {
+    characters += customCharacters;
+  }
 
   if (characters.length === 0) {
     throw new Error('At least one character type must be enabled');
