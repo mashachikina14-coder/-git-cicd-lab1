@@ -1,13 +1,6 @@
 name: Advanced CI
 
-on:
-  push:
-    branches:
-      - master
-      - 'feature/**'
-  pull_request:
-    branches:
-      - master
+on: [push]
 
 jobs:
   security-tests:
