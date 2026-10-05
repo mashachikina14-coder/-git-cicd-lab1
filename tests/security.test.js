@@ -46,3 +46,23 @@ describe('Password Generator Security Tests', () => {
     })).toThrow('At least one character type must be enabled');
   });
 });
+const { checkPasswordStrength } = require('../src/strengthChecker');
+
+describe('Password Strength Checker', () => {
+  test('detects weak password', () => {
+    expect(checkPasswordStrength('abc')).toBe('weak');
+  });
+
+  test('detects medium password', () => {
+    expect(checkPasswordStrength('Password123')).toBe('medium');
+  });
+
+  test('detects strong password', () => {
+    expect(checkPasswordStrength('StrongPassword123!')).toBe('strong');
+  });
+
+  test('rejects non-string password', () => {
+    expect(() => checkPasswordStrength(123456))
+      .toThrow('Password must be a string');
+  });
+});
