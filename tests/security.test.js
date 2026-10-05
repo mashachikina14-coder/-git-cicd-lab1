@@ -1,0 +1,48 @@
+const { generatePassword } = require('../src/passwordGenerator');
+
+describe('Password Generator Security Tests', () => {
+  test('generates password with requested length', () => {
+    const password = generatePassword({ length: 16 });
+
+    expect(password).toHaveLength(16);
+  });
+
+  test('generates password with only lowercase letters', () => {
+    const password = generatePassword({
+      length: 20,
+      lowercase: true,
+      uppercase: false,
+      numbers: false,
+      symbols: false
+    });
+
+    expect(password).toMatch(/^[a-z]+$/);
+  });
+
+  test('generates password with numbers', () => {
+    const password = generatePassword({
+      length: 20,
+      lowercase: false,
+      uppercase: false,
+      numbers: true,
+      symbols: false
+    });
+
+    expect(password).toMatch(/^[0-9]+$/);
+  });
+
+  test('rejects invalid password length', () => {
+    expect(() => generatePassword({ length: 0 }))
+      .toThrow('Password length must be at least 1');
+  });
+
+  test('rejects password with no character types', () => {
+    expect(() => generatePassword({
+      length: 10,
+      lowercase: false,
+      uppercase: false,
+      numbers: false,
+      symbols: false
+    })).toThrow('At least one character type must be enabled');
+  });
+});
